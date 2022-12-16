@@ -48,7 +48,7 @@
                                 <p >{{ product.description }}</p>
                                 <div :style="{'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'flex-direction': 'column'}">
                                     <h1 >${{ product.price }}</h1>
-                                    <v-btn>Calificar</v-btn>
+                                    <v-btn @click = "GuardarR">Calificar</v-btn>
                                     <star-rating  rating=0 v-model:rating="rating" @rating-selected ="setRating"></star-rating> 
                                     <!-- rating es el rating inicial que va a tener, este tráiganlo de la db
                                         setRating es la función que se ejecuta cuando se pone un rating, está implementada abajo
@@ -94,8 +94,32 @@ export default {
         async setRating(rating){
             this.rating = rating;
         }
-    }
+    },
+    async GuardarR() {
+        return axios({
+          method: 'post',
+          data: {
+            idProducto: this.idProducto,
+            raiting: this.rating,
+          },
+          url: `http://localhost:8081/producto/calificar/${idProducto}`,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(() => {
+            Swal.fire(
+              'Excelente',
+              'Se ha registrado correctamente',
+              'success',
+            );
+          })
+          .catch((error) => {
+            const mensaje = error.response.data.mensaje;
+            Swal.fire('Error', `${mensaje}`, 'error')
+          });
 }
+} 
 </script>
 
 
