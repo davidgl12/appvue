@@ -14,7 +14,7 @@
             <div class="!flex justify-between">
                 <h1 class="font-extrabold text-red-500 text-3xl">Lista de pendientes</h1>
                 <v-btn
-                    @click="$router.push('/')"
+                    @click="$router.push('/principal')"
                 >Atrás</v-btn>
             </div>
             <br>
@@ -23,7 +23,7 @@
                 <v-text-field
                     v-model="description"
                     type="text"
-                    placeholder="New todo"
+                    placeholder="Nuevo pendiente"
                     :style="{'width': '60%'}"
                 />
                 <v-btn
@@ -124,7 +124,7 @@ export default {
     async created() {
         try {
             const res = await axios.get(
-                ruta + '/api/todoListItems/'
+                ruta + '/api/listaPendientes/'
             )
             this.loading = false;
             this.todos = res.data
@@ -137,17 +137,17 @@ export default {
     methods: {
         async addItem() {
             const res = await axios.post(
-                ruta + '/api/todoListItems/', { description: this.description }
+                ruta + '/api/listaPendientes/', { description: this.description }
             )
             this.todos.push(res.data);
             this.description = "";
         },
         async removeItem(todo, i) {
-            await axios.delete(ruta + '/api/todoListItems/' + todo._id);
+            await axios.delete(ruta + '/api/listaPendientes/' + todo._id);
             this.todos.splice(i, 1);
         },
         async editItem(todo, i) {
-            const res = await axios.put(ruta + '/api/todoListItems/' + todo._id, { description: this.editedDescription });
+            const res = await axios.put(ruta + '/api/listaPendientes/' + todo._id, { description: this.editedDescription });
             this.todos[i] = res.data;
             this.unselect();
         },

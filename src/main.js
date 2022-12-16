@@ -6,7 +6,7 @@ import { loadFonts } from './plugins/webfontloader'
 import router from './router'
 import store from './store'
 import VueSweetalert2 from 'vue-sweetalert2';
-
+import StarRating from 'vue-star-rating';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import './index.css'
 
@@ -17,4 +17,5 @@ app.use(vuetify)
 app.use(router)
 app.use(store)
 app.use(VueSweetalert2)
+app.component('star-rating', StarRating)
 app.mount('#app')

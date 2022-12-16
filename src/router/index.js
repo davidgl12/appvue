@@ -8,7 +8,7 @@ import Home from '/src/components/PrincipalPagina.vue'
 
 const routes = [
     {
-        path: '/',
+        path: '/principal',
         name: 'Principal',
         component: Home,
     },
@@ -21,6 +21,11 @@ const routes = [
         path: '/lista',
         name: 'Lista',
         component: () => import('/src/components/ListaPagina.vue'),
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('/src/components/Login.vue'),
     }
 ]
 

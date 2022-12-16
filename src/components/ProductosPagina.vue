@@ -12,7 +12,7 @@
         <div >
             <h1 >Products</h1>
             <v-btn
-                @click="$router.push('/')"
+                @click="$router.push('/principal')"
             >Atrás</v-btn>
         </div>
         <br>
@@ -49,6 +49,12 @@
                                 <div :style="{'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'flex-direction': 'column'}">
                                     <h1 >${{ product.price }}</h1>
                                     <v-btn>Calificar</v-btn>
+                                    <star-rating  rating=0 v-model:rating="rating" @rating-selected ="setRating"></star-rating> 
+                                    <!-- rating es el rating inicial que va a tener, este tráiganlo de la db
+                                        setRating es la función que se ejecuta cuando se pone un rating, está implementada abajo
+                                        pónganle por favor que lo guarde en mongo de la forma {idProducto rating} y que cuando lo
+                                        mande a llamar, que ponga el rating previamente guardado en la propiedad rating.
+                                     -->
                                 </div>
                             </div>
                         </v-col>
@@ -69,6 +75,7 @@ export default {
         return {
             products: [],
             loading: true,
+            rating: 0
         }
     },
     async created() {
@@ -79,11 +86,15 @@ export default {
             this.loading = false;
             this.products = res.data
     
-
         } catch (e) {
             console.error(e)
         }
     },
+    methods: {
+        async setRating(rating){
+            this.rating = rating;
+        }
+    }
 }
 </script>
 
